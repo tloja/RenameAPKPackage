@@ -50,8 +50,9 @@ if [ -z "$PROJECT_DIR" ] || [ -z "$NEW_PKG_NAME" ]; then
 	exit 0
 fi
 
-echo "Removing build directory..."
+echo "Removing build and gradle directory..."
 rm -rf $PROJECT_DIR/app/build
+rm -rf $PROJECT_DIR/.gradle
 
 echo "Getting old package name..."
 GRADLE_KTS="$PROJECT_DIR/app/build.gradle.kts" 
@@ -82,3 +83,6 @@ for dir in $DIRECTORIES; do
 		echo "Directory $dir renamed to $new_path"
 	fi
 done
+
+echo "Stopping gradle daemon..."
+$PROJECT_DIR/gradlew --stop
